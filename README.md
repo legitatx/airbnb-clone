@@ -1,2 +1,2 @@
-# airbnb-clone
-Airbnb clone
+# airbnb-clone-server
+Server-side portion of Airbnb clone
