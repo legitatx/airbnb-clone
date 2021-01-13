@@ -1,5 +1,5 @@
 {
-  "name": "airbnb-clone",
+  "name": "airbnb-clone-server",
   "version": "0.0.1",
   "dependencies": {
     "apollo-server-express": "^2.19.1",
