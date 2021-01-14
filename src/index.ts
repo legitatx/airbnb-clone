@@ -2,7 +2,7 @@ require("dotenv").config();
 
 import express, { Application } from "express";
 import { ApolloServer } from "apollo-server-express";
-import { connectDatabase } from "./db";
+import { connectDatabase } from "./database";
 import { typeDefs, resolvers } from "./graphql";
 
 const port = process.env.PORT;
