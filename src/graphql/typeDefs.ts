@@ -4,13 +4,14 @@ export const typeDefs = gql`
   type Viewer {
     id: ID
     token: String
-    avatar: string
+    avatar: String
     hasWallet: Boolean
     didRequest: Boolean!
   }
 
   type Query {
     authUrl: String!
+    user: String!
   }
 
   input LogInInput {
