@@ -2,7 +2,13 @@ import { IResolvers } from "apollo-server-express";
 import { Request } from "express";
 import { Database, User } from "../../../lib/types";
 import { authorize } from "../../../lib/utils";
-import { UserArgs, UserBookingArgs, UserBookingsData } from "./types";
+import {
+  UserArgs,
+  UserBookingArgs,
+  UserBookingsData,
+  UserListingsData,
+  UserListingsArgs,
+} from "./types";
 
 export const userResolvers: IResolvers = {
   Query: {
@@ -70,6 +76,32 @@ export const userResolvers: IResolvers = {
         throw new Error(`Failed to query user bookings: ${error}`);
       }
     },
-    listings: () => {},
+    listings: async (
+      user: User,
+      { limit, page }: UserListingsArgs,
+      { db }: { db: Database }
+    ): Promise<UserListingsData | null> => {
+      try {
+        const data: UserListingsData = {
+          total: 0,
+          result: [],
+        };
+
+        let cursor = db.listings.find({
+          _id: { $in: user.listings },
+        });
+
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        cursor = cursor.limit(limit);
+        /* page: 1, limit: 10, 1-1 = 0 * 10 = 0, cursor = 0, start at first 10 values
+        page: 2, limit: 10, 2-1 = 1 * 10 = 10, cursor = 10, skip first 10 values, start at 10th document */
+        data.total = await cursor.count();
+        data.result = await cursor.toArray();
+
+        return data;
+      } catch (error) {
+        throw new Error(`Failed to query user bookings: ${error}`);
+      }
+    },
   },
 };
