@@ -100,7 +100,7 @@ export const userResolvers: IResolvers = {
 
         return data;
       } catch (error) {
-        throw new Error(`Failed to query user bookings: ${error}`);
+        throw new Error(`Failed to query user listings: ${error}`);
       }
     },
   },
