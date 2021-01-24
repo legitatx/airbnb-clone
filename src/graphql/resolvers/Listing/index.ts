@@ -3,6 +3,7 @@ import { Request } from "express";
 import { ObjectId } from "mongodb";
 import { Database, Listing, User } from "../../../lib/types";
 import { authorize } from "../../../lib/utils";
+import { Google } from "../../../lib/api";
 import {
   ListingArgs,
   ListingBookingsData,
@@ -10,6 +11,7 @@ import {
   ListingsArgs,
   ListingsData,
   ListingsFilter,
+  ListtingsQuery,
 } from "./types";
 
 export const listingResolvers: IResolvers = {
@@ -38,16 +40,40 @@ export const listingResolvers: IResolvers = {
     },
     listings: async (
       _root: undefined,
-      { filter, limit, page }: ListingsArgs,
+      { location, filter, limit, page }: ListingsArgs,
       { db }: { db: Database }
     ): Promise<ListingsData> => {
       try {
+        const query: any = {};
+
         const data: ListingsData = {
+          region: null,
           total: 0,
           result: [],
         };
 
-        let cursor = db.listings.find({});
+        if (location) {
+          const { country, admin, city } = await Google.geocode(location);
+
+          if (city) {
+            query.city = city;
+          }
+          if (admin) {
+            query.admin = city;
+          }
+
+          if (country) {
+            query.country = country;
+          } else {
+            throw new Error("No country found");
+          }
+
+          const cityText = city ? `${city}, ` : "";
+          const adminText = admin ? `${admin}, ` : "";
+          data.region = `${cityText}${adminText}${{ country }}`;
+        }
+
+        let cursor = db.listings.find(query);
 
         if (filter && filter === ListingsFilter.PRICE_HIGH_TO_LOW) {
           cursor = cursor.sort({ price: 1 });
