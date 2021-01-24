@@ -72,7 +72,7 @@ export const typeDefs = gql`
     listing(id: ID!): Listing!
     listings(
       location: String
-      filter: ListingsFilter!
+      filter: ListingFilter!
       limit: Int!
       page: Int!
     ): Listings!
