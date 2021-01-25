@@ -32,7 +32,7 @@ export interface ListingsData {
   result: Listing[];
 }
 
-export interface ListtingsQuery {
+export interface ListingsQuery {
   country?: string;
   admin?: string;
   city?: string;

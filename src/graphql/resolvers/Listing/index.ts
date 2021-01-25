@@ -11,7 +11,7 @@ import {
   ListingsArgs,
   ListingsData,
   ListingsFilter,
-  ListtingsQuery,
+  ListingsQuery,
 } from "./types";
 
 export const listingResolvers: IResolvers = {
