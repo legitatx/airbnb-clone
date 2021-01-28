@@ -1,8 +1,11 @@
 import stripe from "stripe";
 
-const client = new stripe(`${process.env.STRIPE_SECRET_KEY}`, {
-  apiVersion: "2020-08-27",
-});
+const client = new stripe(
+  "sk_test_51IDYu2DPA2EfKp5HW2iSg6ZUxTozglkN6DqNkss8RN4Led1BUDg8akfuXo1F9M2Jnz2dVUukFrNMc0oMmKCglPeQ00N3uvBOuK",
+  {
+    apiVersion: "2020-08-27",
+  }
+);
 
 export const Stripe = {
   connect: async (code: string) => {
@@ -29,7 +32,5 @@ export const Stripe = {
     if (res.status !== "succeeded") {
       throw new Error("Failed to create charge with Stripe");
     }
-
-    
   },
 };

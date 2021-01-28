@@ -89,7 +89,7 @@ export const listingResolvers: IResolvers = {
 
           const cityText = city ? `${city}, ` : "";
           const adminText = admin ? `${admin}, ` : "";
-          data.region = `${cityText}${adminText}${{ country }}`;
+          data.region = `${cityText}${adminText}${country}`;
         }
 
         let cursor = db.listings.find(query);
