@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Google = void 0;
 const googleapis_1 = require("googleapis");
 const google_maps_services_js_1 = require("@googlemaps/google-maps-services-js");
-const auth = new googleapis_1.google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${process.env.PUBLIC_URL}/login`);
+const auth = new googleapis_1.google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `https://ryanbnb.herokuapp.com/login`);
 const maps = new google_maps_services_js_1.Client({});
 const parseAddress = (addressComponents) => {
     let country = null;
