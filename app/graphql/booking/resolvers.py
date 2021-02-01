@@ -46,7 +46,7 @@ class CreateBooking(graphene.Mutation):
         checkIn = graphene.String()
         checkOut = graphene.String()
 
-    inserted_booking = graphene.Field(lambda: Booking)
+    inserted_booking = graphene.Field(Booking)
 
     async def mutate(_, info, id, source, checkIn, checkOut):
         viewer = await authorize(db, info.context["request"])

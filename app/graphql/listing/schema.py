@@ -1,4 +1,4 @@
-from graphene import Field, Interface, Enum, ID, String, Int
+from graphene import Field, Interface, Enum, ID, String, List, Int
 from app.graphql.booking.schema import Bookings
 
 
@@ -31,3 +31,9 @@ class Listing(Interface):
     bookingsIndex = String(required=True)
     price = Int(required=True)
     numOfGuests = Int(required=True)
+
+
+class Listings(Interface):
+    region = String()
+    total = Int(required=True)
+    result = List(Listing, required=True)
