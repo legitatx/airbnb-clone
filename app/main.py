@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import graphene
 from starlette.graphql import GraphQLApp
 from graphql.execution.executors.asyncio import AsyncioExecutor
-from app.database import load_database
+from app.database.mongo import load_database
 from app.graphql.booking.schema import Booking, Bookings
 from app.graphql.booking.resolvers import CreateBooking
 from app.graphql.listing.schema import (
