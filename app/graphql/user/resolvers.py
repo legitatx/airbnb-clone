@@ -39,12 +39,12 @@ class User(graphene.ObjectType):
             return None
 
         data = {"total": 0, "result": []}
-        cursor = db.bookings.find({"_id": {"$in": parent.bookings}})
+        cursor = await db.bookings.find({"_id": {"$in": parent.bookings}})
 
         cursor = cursor.skip((page - 1 if page > 0 else 0) * limit)
         cursor = cursor.limit(limit)
 
-        data["total"] = await cursor.count()
-        data["result"] = await cursor.to_list()
+        data["total"] = cursor.count()
+        data["result"] = cursor.to_list()
 
         return data
