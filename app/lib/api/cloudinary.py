@@ -8,7 +8,7 @@ cloud_name: str = getenv("CLOUDINARY_NAME")
 cloudinary_init(cloud_name=cloud_name, api_key=api_key, api_secret=api_secret)
 
 
-async def upload(image: str):
+def upload(image: str):
     async_kwarg = {"async": True}
     res = uploader.upload(image, **async_kwarg, folder="RBNB_Assets/")
     return res["secure_url"]
