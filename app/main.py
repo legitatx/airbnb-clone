@@ -13,17 +13,25 @@ from app.graphql.listing.schema import (
     Listings,
 )
 from app.graphql.user.schema import User
-from app.graphql.user.resolvers import Query
+from app.graphql.user.resolvers import Query as UserQuery
 from app.graphql.viewer.schema import Viewer
 
 load_dotenv()
 db = load_database()
 
+
+class Query(UserQuery, graphene.ObjectType):
+    pass
+
+
+class Mutation(CreateBooking, graphene.Mutation):
+    pass
+
+
 app = FastAPI()
 app.add_route(
     "/",
     GraphQLApp(
-        #todo add root level query/mutation
         schema=graphene.Schema(
             query=Query,
             types=[
@@ -36,7 +44,7 @@ app.add_route(
                 User,
                 Viewer,
             ],
-            mutation=CreateBooking,
+            mutation=Mutation,
         ),
         executor_class=AsyncioExecutor,
     ),
